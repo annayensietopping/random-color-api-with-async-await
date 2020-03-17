@@ -7,24 +7,39 @@ $(document).ready(function () {
     Modify the fetchColor() to use Async / Await to make the API request
     instead of $.ajax()
   */
-  function fetchColor () {
+
+  // adding async
+  async function fetchColor () {
     const url = 'https://css-colors-api.herokuapp.com/api/v1/colors/random'
 
-    // make API request using #.ajax()
-    $.ajax({
-      url: url,
-      type: 'GET'
-    })
-    .done((response) => {
-      console.log(response)
-      // get response from successful API call and
-      // pass response data to the updateUi() function
-      updateUi(response)
-    })
-    .fail((error) => {
-      console.log(error)
-      alert('an error occurred')
-    })
+try {
+  const response = await axios.get(url)
+  console.log(response)
+  updateUi(response.data)
+} catch(error) {
+  console.log(error)
+  alert('an error occurred')
+}
+
+// re-writing with axios
+
+
+
+  //   // make API request using #.ajax()
+  //   $.ajax({
+  //     url: url,
+  //     type: 'GET'
+  //   })
+  //   .done((response) => {
+  //     console.log(response)
+  //     // get response from successful API call and
+  //     // pass response data to the updateUi() function
+  //     updateUi(response)
+  //   })
+  //   .fail((error) => {
+  //     console.log(error)
+  //     alert('an error occurred')
+  //   })
   }
 
   function updateUi (color) {
